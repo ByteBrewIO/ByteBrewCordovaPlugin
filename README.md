@@ -1,6 +1,6 @@
 # How to Use
 1. Download plugin.
-2. Run:
+2. cd into your project root directory and run:
 ```cmd
 cordova plugin add /Path/To/Downloaded/Folder/ByteBrew
 ```
