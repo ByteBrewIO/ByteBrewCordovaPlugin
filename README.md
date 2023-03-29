@@ -2,7 +2,7 @@
 1. Download plugin.
 2. Run:
 ```cmd
-cordova plugin add /Path/To/Download/ByteBrew
+cordova plugin add /Path/To/Downloaded/Folder/ByteBrew
 ```
 3. Add the following to your project's config.xml file:
 ```xml
