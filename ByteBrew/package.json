@@ -1,0 +1,16 @@
+{
+    "name": "bytebrew-cordova-plugin",
+    "version": "0.1.0",
+    "description": "Cordova ByteBrew plugin",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/your-username/your-plugin-name.git"
+    },
+    "keywords": [
+      "cordova",
+      "plugin"
+    ],
+    "author": "ByteBrew",
+    "license": "MIT"
+  }
+  

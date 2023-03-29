@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="ByteBrew" version="0.1.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>ByteBrew</name>
+    <js-module name="ByteBrew" src="www/ByteBrew.js">
+        <clobbers target="ByteBrew" />
+    </js-module>
+    <platform name="android">
+        <framework src="src/android/bytebrewlibrary.gradle" custom="true" type="gradleReference" />
+        <resource-file src="src/android/libs/bytebrewlibrary-native.aar" target="libs/bytebrewlibrary-native.aar" />
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="ByteBrew">
+                <param name="android-package" value="com.bytebrew.cordovaplugin.ByteBrew" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml" />
+        <source-file src="src/android/ByteBrew.java"
+            target-dir="src/com/bytebrew/cordovaplugin" />
+    </platform>
+    <platform name="ios">
+        <framework src="src/ios/libs/ByteBrew.xcframework" custom="true" embed="true" />
+        <config-file parent="/*" target="config.xml">
+            <feature name="ByteBrew">
+                <param name="ios-package" value="ByteBrew" />
+            </feature>
+        </config-file>
+        <source-file src="src/ios/ByteBrew.m" />
+    </platform>
+</plugin>
