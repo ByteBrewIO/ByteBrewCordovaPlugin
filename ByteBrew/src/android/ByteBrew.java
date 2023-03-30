@@ -3,6 +3,10 @@ package com.bytebrew.cordovaplugin;
 import org.apache.cordova.CordovaPlugin;
 
 import java.io.Console;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.cordova.CallbackContext;
 
@@ -68,6 +72,99 @@ public class ByteBrew extends CordovaPlugin {
             boolean value = args.getBoolean(1);
             this.addCustomDataAttributeWithBooleanValue(key, value, callbackContext);
             return true;
+        } else if (action.equals("addProgressionEvent")) {
+            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
+                    .values()[args.getInt(0)];
+            String environment = args.getString(1);
+            String stage = args.getString(2);
+            this.addProgressionEvent(progressionStatus, environment, stage, callbackContext);
+            return true;
+        } else if (action.equals("addProgressionEventWithNumericValue")) {
+            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
+                    .values()[args.getInt(0)];
+            String environment = args.getString(1);
+            String stage = args.getString(2);
+            int value = args.getInt(3);
+            this.addProgressionEventWithNumericValue(progressionStatus, environment, stage, value, callbackContext);
+            return true;
+        } else if (action.equals("addProgressionEventWithStringValue")) {
+            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
+                    .values()[args.getInt(0)];
+            String environment = args.getString(1);
+            String stage = args.getString(2);
+            String value = args.getString(3);
+            this.addProgressionEventWithStringValue(progressionStatus, environment, stage, value, callbackContext);
+            return true;
+        } else if (action.equals("newTrackedAdEvent")) {
+            com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                    .values()[args.getInt(0)];
+            String adLocation = args.getString(1);
+            this.newTrackedAdEvent(placementType, adLocation, callbackContext);
+            return true;
+        } else if (action.equals("newTrackedAdEventWithAdID")) {
+            com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                    .values()[args.getInt(0)];
+            String adLocation = args.getString(1);
+            String adID = args.getString(2);
+            this.newTrackedAdEventWithAdID(placementType, adLocation, adID, callbackContext);
+            return true;
+        } else if (action.equals("newTrackedAdEventWithAdIDAndAdProvider")) {
+            com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                    .values()[args.getInt(0)];
+            String adLocation = args.getString(1);
+            String adID = args.getString(2);
+            String adProvider = args.getString(3);
+            this.newTrackedAdEventWithAdIDAndAdProvider(placementType, adLocation, adID, adProvider, callbackContext);
+            return true;
+        } else if (action.equals("addTrackedInAppPurchaseEvent")) {
+            String store = args.getString(0);
+            String currency = args.getString(1);
+            float amount = (float) args.getDouble(2);
+            String itemID = args.getString(3);
+            String category = args.getString(4);
+            this.addTrackedInAppPurchaseEvent(store, currency, amount, itemID, category, callbackContext);
+            return true;
+        } else if (action.equals("addTrackedGoogleInAppPurchaseEvent")) {
+            String store = args.getString(0);
+            String currency = args.getString(1);
+            float amount = (float) args.getDouble(2);
+            String itemID = args.getString(3);
+            String category = args.getString(4);
+            String receipt = args.getString(5);
+            String signature = args.getString(6);
+            this.addTrackedGoogleInAppPurchaseEvent(store, currency, amount, itemID, category, receipt, signature,
+                    callbackContext);
+        } else if (action.equals("validateGoogleInAppPurchaseEvent")) {
+            String store = args.getString(0);
+            String currency = args.getString(1);
+            float amount = (float) args.getDouble(2);
+            String itemID = args.getString(3);
+            String category = args.getString(4);
+            String receipt = args.getString(5);
+            String signature = args.getString(6);
+            this.validateGoogleInAppPurchaseEvent(store, currency, amount, itemID, category, receipt, signature,
+                    callbackContext);
+            return true;
+        } else if (action.equals("hasRemoteConfigs")) {
+            this.hasRemoteConfigs(callbackContext);
+            return true;
+        } else if (action.equals("loadRemoteConfigs")) {
+            this.loadRemoteConfigs(callbackContext);
+            return true;
+        } else if (action.equals("retrieveRemoteConfigs")) {
+            String key = args.getString(0);
+            String defaultValue = args.getString(1);
+            this.retrieveRemoteConfigs(key, defaultValue, callbackContext);
+            return true;
+        } else if (action.equals("getUserID")) {
+            this.getUserID(callbackContext);
+            return true;
+        } else if (action.equals("restartTracking")) {
+            this.restartTracking(callbackContext);
+            return true;
+        } else if (action.equals("stopTracking")) {
+            this.stopTracking(callbackContext);
+            return true;
         }
         return false;
     }
@@ -80,8 +177,10 @@ public class ByteBrew extends CordovaPlugin {
         }
     }
 
-    private void initializeWithSettings(String gameID, String secretKey, String engineVersion, String buildVersion, CallbackContext callbackContext) {
-        com.bytebrew.bytebrewlibrary.ByteBrew.InitializeByteBrew(gameID, secretKey, engineVersion, cordova.getActivity().getApplicationContext());
+    private void initializeWithSettings(String gameID, String secretKey, String engineVersion, String buildVersion,
+            CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.InitializeByteBrew(gameID, secretKey, engineVersion,
+                cordova.getActivity().getApplicationContext());
     }
 
     private void isByteBrewInitialized(CallbackContext callbackContext) {
@@ -119,6 +218,102 @@ public class ByteBrew extends CordovaPlugin {
 
     private void addCustomDataAttributeWithBooleanValue(String key, boolean value, CallbackContext callbackContext) {
         com.bytebrew.bytebrewlibrary.ByteBrew.SetCustomData(key, value);
+    }
+
+    private void addProgressionEvent(com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus,
+            String environment, String stage,
+            CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.NewProgressionEvent(progressionStatus, environment, stage);
+    }
+
+    private void addProgressionEventWithNumericValue(
+            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus, String environment,
+            String stage, float value, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.NewProgressionEvent(progressionStatus, environment, stage, value);
+    }
+
+    private void addProgressionEventWithStringValue(
+            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus, String environment,
+            String stage, String value, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.NewProgressionEvent(progressionStatus, environment, stage, value);
+    }
+
+    private void newTrackedAdEvent(com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType, String adLocation,
+            CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.TrackAdEvent(placementType, adLocation);
+    }
+
+    private void newTrackedAdEventWithAdID(com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType, String adLocation,
+            String adID,
+            CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.TrackAdEvent(placementType, adLocation, adID);
+    }
+
+    private void newTrackedAdEventWithAdIDAndAdProvider(com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType,
+            String adLocation, String adID,
+            String adProvider, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.TrackAdEvent(placementType, adLocation, adID, adProvider);
+    }
+
+    private void addTrackedInAppPurchaseEvent(String store, String currency, float amount, String itemID,
+            String category, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.TrackInAppPurchaseEvent(store, currency, amount, itemID, category);
+    }
+
+    private void addTrackedGoogleInAppPurchaseEvent(String store, String currency, float amount, String itemID,
+            String category, String receipt, String signature, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.TrackGoogleInAppPurchaseEvent(store, currency, amount, itemID, category,
+                receipt, signature);
+    }
+
+    private void validateGoogleInAppPurchaseEvent(String store, String currency, float amount, String itemID,
+            String category, String receipt, String signature, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.PurchaseResponseListener listener = new com.bytebrew.bytebrewlibrary.PurchaseResponseListener() {
+            @Override
+            public void purchaseValidated(com.bytebrew.bytebrewlibrary.ByteBrewPurchaseResult result) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                // Use getters if available or request library author to provide them
+                map.put("purchaseValid", result.isPurchaseValid());
+                map.put("purchaseProcessed", result.isPurchaseProcessed());
+                map.put("itemID", result.getItemID());
+                map.put("validationTime", result.getValidationTime());
+                map.put("message", result.getMessage());
+                JSONObject json = new JSONObject(map);
+                callbackContext.success(json);
+            }
+        };
+        com.bytebrew.bytebrewlibrary.ByteBrew.ValidateGoogleInAppPurchaseEvent(store, currency, amount, itemID,
+                category, receipt, signature, listener);
+    }
+
+    private void hasRemoteConfigs(CallbackContext callbackContext) {
+        callbackContext.success(com.bytebrew.bytebrewlibrary.ByteBrew.HasRemoteConfigsBeenSet() ? "true" : "false");
+    }
+
+    private void loadRemoteConfigs(CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.RemoteConfigListener listener = new com.bytebrew.bytebrewlibrary.RemoteConfigListener() {
+            @Override
+            public void RetrievedConfigs(boolean status) {
+                callbackContext.success(status ? "true" : "false");
+            }
+        };
+        com.bytebrew.bytebrewlibrary.ByteBrew.LoadRemoteConfigs(listener);
+    }
+
+    private void retrieveRemoteConfigs(String key, String defaultValue, CallbackContext callbackContext) {
+        callbackContext.success(com.bytebrew.bytebrewlibrary.ByteBrew.RetrieveRemoteConfigValue(key, defaultValue));
+    }
+
+    private void getUserID(CallbackContext callbackContext) {
+        callbackContext.success(com.bytebrew.bytebrewlibrary.ByteBrew.GetUserID());
+    }
+
+    private void restartTracking(CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.RestartTracking(cordova.getActivity().getApplicationContext());
+    }
+
+    private void stopTracking(CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.StopTracking(cordova.getActivity().getApplicationContext());
     }
 
 }
