@@ -17,7 +17,7 @@ cordova plugin add /Path/To/Downloaded/Folder/ByteBrew
   <param name="onload" value="true" />
 </feature>  
 ```
-#### Note: steps 4-7 are iOS specific! Skip if not building for iOS.
+### Note: steps 4-7 are iOS specific! Skip if not building for iOS.
 
 4. Open your project's .xcworkspace file (/project_root/platforms/ios/ProjectName.xcworkspace) in Xcode.
 
@@ -27,7 +27,7 @@ cordova plugin add /Path/To/Downloaded/Folder/ByteBrew
 
 7. Remember to repeat steps 4-7 if you ever remove and re-add the ios platform for your project!
 
-#### Nice job!
+### Nice job!
 
 8. Ready to go! You can now call ByteBrew methods through javascript in Cordova:
 
