@@ -12,7 +12,11 @@ cordova plugin add /Path/To/Downloaded/Folder/ByteBrew
   <param name="onload" value="true" />
 </feature>  
 ```
-4. Call ByteBrew methods through javascript:
+4. Open your project's .xcworkspace file in /project_root/platforms/ios/ProjectName.xcworkspace.
+5. Click on the target for your project, i.e. Targets > ProjectName.
+6. Under the "Build Phases" section, click the plus (+) under Link Binary With Libraries, and add ByteBrew.xcframework. Close XCode.
+7. Remember to repeat steps 4-7 if you ever remove and re-add the ios platform for your project!
+8. Ready to go! Call ByteBrew methods through javascript:
 ```js
 ByteBrew.initializeWithSettings("GAME_KEY", "SECRET_KEY", "ENGINE_VERSION", "BUILD_VERSION");
 ```
