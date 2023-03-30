@@ -182,11 +182,11 @@ typedef enum {
 
 - (NSString*)byteBrewAdTypeToString:(ByteBrewAdType)adType {
     switch (adType) {
-        case ByteBrewAdType.Banner:
+        case Banner:
             return @"Banner";
-        case ByteBrewAdType.Interstitial:
+        case Interstitial:
             return @"Interstitial";
-        case ByteBrewAdType.Reward:
+        case Reward:
             return @"Reward";
         default:
             return @"Unknown";

@@ -189,7 +189,7 @@ public class ByteBrew extends CordovaPlugin {
     }
 
     private void startPushNotifications(CallbackContext callbackContext) {
-        com.bytebrew.bytebrewlibrary.ByteBrew.StartPushNotifications(cordova.getActivity().getApplicationContext());
+        com.bytebrew.bytebrewlibrary.ByteBrew.StartPushNotifications(cordova.getActivity());
     }
 
     private void addNewCustomEvent(String eventName, CallbackContext callbackContext) {
@@ -273,10 +273,10 @@ public class ByteBrew extends CordovaPlugin {
             public void purchaseValidated(com.bytebrew.bytebrewlibrary.ByteBrewPurchaseResult result) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 // Use getters if available or request library author to provide them
-                map.put("purchaseValid", result.isPurchaseValid());
+                map.put("isValid", result.isPurchaseValid());
                 map.put("purchaseProcessed", result.isPurchaseProcessed());
                 map.put("itemID", result.getItemID());
-                map.put("validationTime", result.getValidationTime());
+                map.put("timestamp", result.getValidationTime());
                 map.put("message", result.getMessage());
                 JSONObject json = new JSONObject(map);
                 callbackContext.success(json);
