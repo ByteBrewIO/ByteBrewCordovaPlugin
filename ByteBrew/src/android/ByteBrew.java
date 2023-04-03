@@ -21,152 +21,159 @@ public class ByteBrew extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("coolMethod")) {
-            String message = args.getString(0);
-            this.coolMethod(message, callbackContext);
-            return true;
-        } else if (action.equals("initializeWithSettings")) {
-            String gameID = args.getString(0);
-            String secretKey = args.getString(1);
-            String engineVersion = args.getString(2);
-            String buildVersion = args.getString(3);
-            this.initializeWithSettings(gameID, secretKey, engineVersion, buildVersion, callbackContext);
-            return true;
-        } else if (action.equals("isByteBrewInitialized")) {
-            this.isByteBrewInitialized(callbackContext);
-            return true;
-        } else if (action.equals("startPushNotifications")) {
-            this.startPushNotifications(callbackContext);
-            return true;
-        } else if (action.equals("addNewCustomEvent")) {
-            String eventName = args.getString(0);
-            this.addNewCustomEvent(eventName, callbackContext);
-            return true;
-        } else if (action.equals("addNewCustomEventWithNumericValue")) {
-            String eventName = args.getString(0);
-            float value = (float) args.getDouble(1);
-            this.addNewCustomEventWithNumericValue(eventName, value, callbackContext);
-            return true;
-        } else if (action.equals("addNewCustomEventWithStringValue")) {
-            String eventName = args.getString(0);
-            String value = args.getString(1);
-            this.addNewCustomEventWithStringValue(eventName, value, callbackContext);
-            return true;
-        } else if (action.equals("addCustomDataAttributeWithStringValue")) {
-            String key = args.getString(0);
-            String value = args.getString(1);
-            this.addCustomDataAttributeWithStringValue(key, value, callbackContext);
-            return true;
-        } else if (action.equals("addCustomDataAttributeWithDoubleValue")) {
-            String key = args.getString(0);
-            double value = args.getDouble(1);
-            this.addCustomDataAttributeWithDoubleValue(key, value, callbackContext);
-            return true;
-        } else if (action.equals("addCustomDataAttributeWithIntegerValue")) {
-            String key = args.getString(0);
-            int value = args.getInt(1);
-            this.addCustomDataAttributeWithIntegerValue(key, value, callbackContext);
-            return true;
-        } else if (action.equals("addCustomDataAttributeWithBooleanValue")) {
-            String key = args.getString(0);
-            boolean value = args.getBoolean(1);
-            this.addCustomDataAttributeWithBooleanValue(key, value, callbackContext);
-            return true;
-        } else if (action.equals("addProgressionEvent")) {
-            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
-                    .values()[args.getInt(0)];
-            String environment = args.getString(1);
-            String stage = args.getString(2);
-            this.addProgressionEvent(progressionStatus, environment, stage, callbackContext);
-            return true;
-        } else if (action.equals("addProgressionEventWithNumericValue")) {
-            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
-                    .values()[args.getInt(0)];
-            String environment = args.getString(1);
-            String stage = args.getString(2);
-            int value = args.getInt(3);
-            this.addProgressionEventWithNumericValue(progressionStatus, environment, stage, value, callbackContext);
-            return true;
-        } else if (action.equals("addProgressionEventWithStringValue")) {
-            com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
-                    .values()[args.getInt(0)];
-            String environment = args.getString(1);
-            String stage = args.getString(2);
-            String value = args.getString(3);
-            this.addProgressionEventWithStringValue(progressionStatus, environment, stage, value, callbackContext);
-            return true;
-        } else if (action.equals("newTrackedAdEvent")) {
-            com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
-                    .values()[args.getInt(0)];
-            String adLocation = args.getString(1);
-            this.newTrackedAdEvent(placementType, adLocation, callbackContext);
-            return true;
-        } else if (action.equals("newTrackedAdEventWithAdID")) {
-            com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
-                    .values()[args.getInt(0)];
-            String adLocation = args.getString(1);
-            String adID = args.getString(2);
-            this.newTrackedAdEventWithAdID(placementType, adLocation, adID, callbackContext);
-            return true;
-        } else if (action.equals("newTrackedAdEventWithAdIDAndAdProvider")) {
-            com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
-                    .values()[args.getInt(0)];
-            String adLocation = args.getString(1);
-            String adID = args.getString(2);
-            String adProvider = args.getString(3);
-            this.newTrackedAdEventWithAdIDAndAdProvider(placementType, adLocation, adID, adProvider, callbackContext);
-            return true;
-        } else if (action.equals("addTrackedInAppPurchaseEvent")) {
-            String store = args.getString(0);
-            String currency = args.getString(1);
-            float amount = (float) args.getDouble(2);
-            String itemID = args.getString(3);
-            String category = args.getString(4);
-            this.addTrackedInAppPurchaseEvent(store, currency, amount, itemID, category, callbackContext);
-            return true;
-        } else if (action.equals("addTrackedGoogleInAppPurchaseEvent")) {
-            String store = args.getString(0);
-            String currency = args.getString(1);
-            float amount = (float) args.getDouble(2);
-            String itemID = args.getString(3);
-            String category = args.getString(4);
-            String receipt = args.getString(5);
-            String signature = args.getString(6);
-            this.addTrackedGoogleInAppPurchaseEvent(store, currency, amount, itemID, category, receipt, signature,
-                    callbackContext);
-        } else if (action.equals("validateGoogleInAppPurchaseEvent")) {
-            String store = args.getString(0);
-            String currency = args.getString(1);
-            float amount = (float) args.getDouble(2);
-            String itemID = args.getString(3);
-            String category = args.getString(4);
-            String receipt = args.getString(5);
-            String signature = args.getString(6);
-            this.validateGoogleInAppPurchaseEvent(store, currency, amount, itemID, category, receipt, signature,
-                    callbackContext);
-            return true;
-        } else if (action.equals("hasRemoteConfigs")) {
-            this.hasRemoteConfigs(callbackContext);
-            return true;
-        } else if (action.equals("loadRemoteConfigs")) {
-            this.loadRemoteConfigs(callbackContext);
-            return true;
-        } else if (action.equals("retrieveRemoteConfigs")) {
-            String key = args.getString(0);
-            String defaultValue = args.getString(1);
-            this.retrieveRemoteConfigs(key, defaultValue, callbackContext);
-            return true;
-        } else if (action.equals("getUserID")) {
-            this.getUserID(callbackContext);
-            return true;
-        } else if (action.equals("restartTracking")) {
-            this.restartTracking(callbackContext);
-            return true;
-        } else if (action.equals("stopTracking")) {
-            this.stopTracking(callbackContext);
-            return true;
+        switch (action) {
+            case "coolMethod":
+                String message = args.getString(0);
+                this.coolMethod(message, callbackContext);
+                return true;
+            case "initializeWithSettings":
+                String gameID = args.getString(0);
+                String secretKey = args.getString(1);
+                String engineVersion = args.getString(2);
+                String buildVersion = args.getString(3);
+                this.initializeWithSettings(gameID, secretKey, engineVersion, buildVersion, callbackContext);
+                return true;
+            case "isByteBrewInitialized":
+                this.isByteBrewInitialized(callbackContext);
+                return true;
+            case "startPushNotifications":
+                this.startPushNotifications(callbackContext);
+                return true;
+            case "addNewCustomEvent":
+                String eventName = args.getString(0);
+                this.addNewCustomEvent(eventName, callbackContext);
+                return true;
+            case "addNewCustomEventWithNumericValue":
+                eventName = args.getString(0);
+                float floatValue = (float) args.getDouble(1);
+                this.addNewCustomEventWithNumericValue(eventName, floatValue, callbackContext);
+                return true;
+            case "addNewCustomEventWithStringValue":
+                eventName = args.getString(0);
+                String stringValue = args.getString(1);
+                this.addNewCustomEventWithStringValue(eventName, stringValue, callbackContext);
+                return true;
+            case "addCustomDataAttributeWithStringValue":
+                String key = args.getString(0);
+                stringValue = args.getString(1);
+                this.addCustomDataAttributeWithStringValue(key, stringValue, callbackContext);
+                return true;
+            case "addCustomDataAttributeWithDoubleValue":
+                key = args.getString(0);
+                double doubleValue = args.getDouble(1);
+                this.addCustomDataAttributeWithDoubleValue(key, doubleValue, callbackContext);
+                return true;
+            case "addCustomDataAttributeWithIntegerValue":
+                key = args.getString(0);
+                int intValue = args.getInt(1);
+                this.addCustomDataAttributeWithIntegerValue(key, intValue, callbackContext);
+                return true;
+            case "addCustomDataAttributeWithBooleanValue":
+                key = args.getString(0);
+                boolean boolValue = args.getBoolean(1);
+                this.addCustomDataAttributeWithBooleanValue(key, boolValue, callbackContext);
+                return true;
+            case "addProgressionEvent":
+                com.bytebrew.bytebrewlibrary.ByteBrewProgressionType progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
+                        .values()[args.getInt(0)];
+                String environment = args.getString(1);
+                String stage = args.getString(2);
+                this.addProgressionEvent(progressionStatus, environment, stage, callbackContext);
+                return true;
+            case "addProgressionEventWithNumericValue":
+                progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
+                        .values()[args.getInt(0)];
+                environment = args.getString(1);
+                stage = args.getString(2);
+                floatValue = (float) args.getDouble(3);
+                this.addProgressionEventWithNumericValue(progressionStatus, environment, stage, floatValue,
+                        callbackContext);
+                return true;
+            case "addProgressionEventWithStringValue":
+                progressionStatus = com.bytebrew.bytebrewlibrary.ByteBrewProgressionType
+                        .values()[args.getInt(0)];
+                environment = args.getString(1);
+                stage = args.getString(2);
+                stringValue = args.getString(3);
+                this.addProgressionEventWithStringValue(progressionStatus, environment, stage, stringValue,
+                        callbackContext);
+                return true;
+            case "newTrackedAdEvent":
+                com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                        .values()[args.getInt(0)];
+                String adLocation = args.getString(1);
+                this.newTrackedAdEvent(placementType, adLocation, callbackContext);
+                return true;
+            case "newTrackedAdEventWithAdID":
+                placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                        .values()[args.getInt(0)];
+                adLocation = args.getString(1);
+                String adID = args.getString(2);
+                this.newTrackedAdEventWithAdID(placementType, adLocation, adID, callbackContext);
+                return true;
+            case "newTrackedAdEventWithAdIDAndAdProvider":
+                placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                        .values()[args.getInt(0)];
+                adLocation = args.getString(1);
+                adID = args.getString(2);
+                String adProvider = args.getString(3);
+                this.newTrackedAdEventWithAdIDAndAdProvider(placementType, adLocation, adID, adProvider,
+                        callbackContext);
+                return true;
+            case "addTrackedInAppPurchaseEvent":
+                String store = args.getString(0);
+                String currency = args.getString(1);
+                float amount = (float) args.getDouble(2);
+                String itemID = args.getString(3);
+                String category = args.getString(4);
+                this.addTrackedInAppPurchaseEvent(store, currency, amount, itemID, category, callbackContext);
+                return true;
+            case "addTrackedGoogleInAppPurchaseEvent":
+                store = args.getString(0);
+                currency = args.getString(1);
+                amount = (float) args.getDouble(2);
+                itemID = args.getString(3);
+                category = args.getString(4);
+                String receipt = args.getString(5);
+                String signature = args.getString(6);
+                this.addTrackedGoogleInAppPurchaseEvent(store, currency, amount, itemID, category, receipt, signature,
+                        callbackContext);
+                return true;
+            case "validateGoogleInAppPurchaseEvent":
+                store = args.getString(0);
+                currency = args.getString(1);
+                amount = (float) args.getDouble(2);
+                itemID = args.getString(3);
+                category = args.getString(4);
+                receipt = args.getString(5);
+                signature = args.getString(6);
+                this.validateGoogleInAppPurchaseEvent(store, currency, amount, itemID, category, receipt, signature,
+                        callbackContext);
+                return true;
+            case "hasRemoteConfigs":
+                this.hasRemoteConfigs(callbackContext);
+                return true;
+            case "loadRemoteConfigs":
+                this.loadRemoteConfigs(callbackContext);
+                return true;
+            case "retrieveRemoteConfigs":
+                key = args.getString(0);
+                String defaultValue = args.getString(1);
+                this.retrieveRemoteConfigs(key, defaultValue, callbackContext);
+                return true;
+            case "getUserID":
+                this.getUserID(callbackContext);
+                return true;
+            case "restartTracking":
+                this.restartTracking(callbackContext);
+                return true;
+            case "stopTracking":
+                this.stopTracking(callbackContext);
+                return true;
+            default:
+                return false;
         }
-        return false;
+
     }
 
     private void coolMethod(String message, CallbackContext callbackContext) {
