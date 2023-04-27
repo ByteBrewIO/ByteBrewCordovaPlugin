@@ -26,5 +26,11 @@
             </feature>
         </config-file>
         <source-file src="src/ios/ByteBrew.m" />
+        <config-file target="*/Entitlements-Debug.plist" parent="aps-environment">
+			<string>development</string>
+		</config-file>
+		<config-file target="*/Entitlements-Release.plist" parent="aps-environment">
+			<string>production</string>
+		</config-file>
     </platform>
 </plugin>
