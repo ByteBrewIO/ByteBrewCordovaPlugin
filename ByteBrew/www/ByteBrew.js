@@ -92,6 +92,14 @@ exports.newTrackedAdEventWithAdIDAndAdProvider = function (placementType, adLoca
     exec(successCallback, errorCallback, "ByteBrew", "newTrackedAdEventWithAdIDAndAdProvider", [placementType, adLocation, adID, adProvider]);
 };
 
+exports.newTrackedAdEventWithRevenue = function (placementType, adProvider, adUnitName, revenue, successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "ByteBrew", "newTrackedAdEventWithRevenue", [placementType, adProvider, adUnitName, revenue]);
+}
+
+exports.newTrackedAdEventWithRevenueAndLocation = function (placementType, adProvider, adUnitName, adLocation, revenue, successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "ByteBrew", "newTrackedAdEventWithRevenueAndLocation", [placementType, adProvider, adUnitName, adLocation, revenue]);
+}
+
 //iap
 
 exports.addTrackedInAppPurchaseEvent = function (store, currency, amount, itemID, category, successCallback, errorCallback) {

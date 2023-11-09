@@ -120,6 +120,24 @@ public class ByteBrew extends CordovaPlugin {
                 this.newTrackedAdEventWithAdIDAndAdProvider(placementType, adLocation, adID, adProvider,
                         callbackContext);
                 return true;
+            case "newTrackedAdEventWithRevenue":
+                placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                        .values()[args.getInt(0)];
+                adProvider = args.getString(1);
+                String adUnitName = args.getString(2);
+                double revenue = args.getDouble(3);
+                this.newTrackedAdEventWithRevenue(placementType, adProvider, adUnitName, revenue, callbackContext);
+                return true;
+            case "newTrackedAdEventWithRevenueAndLocation":
+                placementType = com.bytebrew.bytebrewlibrary.ByteBrewAdType
+                        .values()[args.getInt(0)];
+                adProvider = args.getString(1);
+                adUnitName = args.getString(2);
+                adLocation = args.getString(3);
+                revenue = args.getDouble(4);
+                this.newTrackedAdEventWithRevenueAndLocation(placementType, adProvider, adUnitName, adLocation, revenue,
+                        callbackContext);
+                return true;
             case "addTrackedInAppPurchaseEvent":
                 String store = args.getString(0);
                 String currency = args.getString(1);
@@ -260,6 +278,18 @@ public class ByteBrew extends CordovaPlugin {
             String adLocation, String adID,
             String adProvider, CallbackContext callbackContext) {
         com.bytebrew.bytebrewlibrary.ByteBrew.TrackAdEvent(placementType, adLocation, adID, adProvider);
+    }
+
+    private void newTrackedAdEventWithRevenue(com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType,
+            String adProvider, String adUnitName,
+            double revenue, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.TrackAdEvent(placementType, adProvider, adUnitName, revenue);
+    }
+
+    private void newTrackedAdEventWithRevenueAndLocation(com.bytebrew.bytebrewlibrary.ByteBrewAdType placementType,
+            String adProvider, String adUnitName,
+            String adLocation, double revenue, CallbackContext callbackContext) {
+        com.bytebrew.bytebrewlibrary.ByteBrew.TrackAdEvent(placementType, adProvider, adUnitName, adLocation, revenue);
     }
 
     private void addTrackedInAppPurchaseEvent(String store, String currency, float amount, String itemID,

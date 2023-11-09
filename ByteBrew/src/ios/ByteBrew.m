@@ -46,6 +46,8 @@ typedef enum {
 - (void)newTrackedAdEvent:(CDVInvokedUrlCommand*)command;
 - (void)newTrackedAdEventWithAdID:(CDVInvokedUrlCommand*)command;
 - (void)newTrackedAdEventWithAdIDAndAdProvider:(CDVInvokedUrlCommand*)command;
+- (void)newTrackedAdEventWithRevenue:(CDVInvokedUrlCommand*)command;
+- (void)newTrackedAdEventWithRevenueAndLocation:(CDVInvokedUrlCommand*)command;
 - (void)addTrackediOSInAppPurchaseEvent:(CDVInvokedUrlCommand*)command;
 - (void)validateiOSInAppPurchaseEvent:(CDVInvokedUrlCommand*)command;
 - (void)hasRemoteConfigs:(CDVInvokedUrlCommand*)command;
@@ -222,6 +224,31 @@ typedef enum {
     NSString* adID = [command.arguments objectAtIndex:2];
     NSString* adProvider = [command.arguments objectAtIndex:3];
     [ByteBrewNativeiOSPlugin NewTrackedAdEvent:placementType AdLocation:adLocation AdID:adID AdProvider:adProvider];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)newTrackedAdEventWithRevenue:(CDVInvokedUrlCommand*)command {
+    int placementTypeInt = [[command.arguments objectAtIndex:0] intValue];
+    ByteBrewAdType adType = (ByteBrewAdType)placementTypeInt;
+    NSString* placementType = [self byteBrewAdTypeToString:adType];
+    NSString* adProvider = [command.arguments objectAtIndex:1];
+    NSString* adUnitName = [command.arguments objectAtIndex:2];
+    Float64 revenue = [[command.arguments objectAtIndex:3] doubleValue];
+    [ByteBrewNativeiOSPlugin NewTrackedAdEvent:placementType AdProvider:adProvider AdUnitName:adUnitName Revenue:revenue];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)newTrackedAdEventWithRevenueAndLocation:(CDVInvokedUrlCommand*)command {
+    int placementTypeInt = [[command.arguments objectAtIndex:0] intValue];
+    ByteBrewAdType adType = (ByteBrewAdType)placementTypeInt;
+    NSString* placementType = [self byteBrewAdTypeToString:adType];
+    NSString* adProvider = [command.arguments objectAtIndex:1];
+    NSString* adUnitName = [command.arguments objectAtIndex:2];
+    NSString* adLocation = [command.arguments objectAtIndex:3];
+    Float64 revenue = [[command.arguments objectAtIndex:4] doubleValue];
+    [ByteBrewNativeiOSPlugin NewTrackedAdEvent:placementType AdProvider:adProvider AdUnitName:adUnitName AdLocation:adLocation Revenue:revenue];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

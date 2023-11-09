@@ -61,6 +61,8 @@ ByteBrew.addProgressionEventWithStringValue(ByteBrew.ByteBrewProgressionType.Sta
 ByteBrew.newTrackedAdEvent(ByteBrew.ByteBrewAdType.Reward);
 ByteBrew.newTrackedAdEventWithAdID(ByteBrew.ByteBrewAdType.Reward, "TestAdID");
 ByteBrew.newTrackedAdEventWithAdIDAndAdProvider(ByteBrew.ByteBrewAdType.Reward, "TestAdID", "TestAdProvider");
+ByteBrew.newTrackedAdEventWithRevenue(ByteBrew.ByteBrewAdType.Reward, "TestAdProvider", "TestUnitName", 0.23456);
+ByteBrew.newTrackedAdEventWithRevenueAndLocation(ByteBrew.ByteBrewAdType.Reward, "TestAdProvider", "TestUnitName", "TestLocation", 0.23456);
 ByteBrew.addTrackedInAppPurchaseEvent("TestStore", "USD", 0.5, "TestItemID", "TestCategory");
 ByteBrew.addTrackediOSInAppPurchaseEvent("TestStore", "USD", 0.5, "TestItemID", "TestCategory", "TestReceipt");
 ByteBrew.validateiOSInAppPurchaseEvent("TestStore", "USD", 0.5, "TestItemID", "TestCategory", "TestReceipt",
