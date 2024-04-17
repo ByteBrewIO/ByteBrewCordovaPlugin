@@ -1,6 +1,6 @@
 {
     "name": "bytebrew-cordova-plugin",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Cordova ByteBrew plugin",
     "repository": {
       "type": "git",
